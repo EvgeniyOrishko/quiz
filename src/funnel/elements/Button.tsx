@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { useFunnel } from '../state'
 import { font, u } from '../style'
 import type { ElProps } from '../Renderer'
@@ -23,6 +24,13 @@ export function ButtonEl({ el }: ElProps) {
     }
     run(a)
   }
+
+  // Pressing Enter in a form field submits via the screen's primary Continue button.
+  useEffect(() => {
+    if (a?.type !== 'navigate') return
+    window.addEventListener('ff-submit', click)
+    return () => window.removeEventListener('ff-submit', click)
+  })
 
   return (
     <button

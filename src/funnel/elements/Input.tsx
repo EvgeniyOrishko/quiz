@@ -23,6 +23,10 @@ export function InputEl({ el }: ElProps) {
         inputMode={el.props.type === 'email' ? 'email' : undefined}
         autoComplete={el.props.type === 'email' ? 'email' : undefined}
         placeholder={el.props.placeholder}
+        aria-label={el.props.placeholder || 'Email'}
+        aria-invalid={invalid || undefined}
+        enterKeyHint="go"
+        onKeyDown={(e) => e.key === 'Enter' && window.dispatchEvent(new Event('ff-submit'))}
         value={email}
         onBlur={() => setTouched(true)}
         onChange={(e) => {
@@ -42,7 +46,7 @@ export function InputEl({ el }: ElProps) {
           padding: `${u(o.paddingVertical)} ${u(o.paddingHorizontal)}`,
         }}
       />
-      {invalid && <div className="ff-error">Введите корректный email</div>}
+      {invalid && <div className="ff-error" role="alert">Введите корректный email</div>}
     </div>
   )
 }

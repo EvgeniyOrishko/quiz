@@ -11,7 +11,7 @@ export function ContainerEl({ el, children }: ElProps) {
   const v = ALIGN[c.vAlign?.value] ?? 'stretch'
   const sizes: number[] | undefined = Array.isArray(c.columnSizes) ? c.columnSizes : undefined
   const kids = Children.toArray(children)
-  const base: CSSProperties = { gap: u(c.gap), ...boxStyle(c) }
+  const base: CSSProperties = { gap: u(c.gap) ?? (horizontal ? 8 : undefined), ...boxStyle(c) }
   // columnSizes behave like `fr` tracks: proportional, but never narrower than their content.
   const style: CSSProperties =
     sizes && horizontal
@@ -21,11 +21,11 @@ export function ContainerEl({ el, children }: ElProps) {
           display: 'flex',
           flexDirection: horizontal ? 'row' : 'column',
           // Main axis ↔ hAlign for rows, vAlign for columns (matches the source layout engine).
-          justifyContent: horizontal ? h : v,
+          justifyContent: horizontal ? (h === 'stretch' ? 'space-between' : h) : v,
           alignItems: horizontal ? v : h,
         }
   return (
-    <div className="ff-container" style={style}>
+    <div className={`ff-container${sizes && horizontal ? ' ff-grid' : ''}`} style={style}>
       {kids}
     </div>
   )

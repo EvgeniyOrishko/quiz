@@ -36,6 +36,7 @@ export function OptionsEl({ el }: ElProps) {
   return (
     <div
       className="ff-options"
+      role={p.multi ? 'group' : 'radiogroup'}
       style={{
         display: 'grid',
         gridTemplateColumns: `repeat(${columns}, minmax(0, 1fr))`,
@@ -50,7 +51,9 @@ export function OptionsEl({ el }: ElProps) {
           <button
             key={opt.id}
             type="button"
-            aria-pressed={on}
+            role={p.multi ? undefined : 'radio'}
+            aria-checked={p.multi ? undefined : on}
+            aria-pressed={p.multi ? on : undefined}
             className={`ff-option${on ? ' is-on' : ''}`}
             onClick={() => pick(opt.value)}
             style={{

@@ -14,15 +14,18 @@ h1, h2, h3, p { margin: 0; }
 
 .ff-app { min-height: 100dvh; background: var(--bg); font-family: var(--font); }
 .ff-screen { max-width: var(--page-w); margin: 0 auto; min-height: 100dvh; display: flex; flex-direction: column; }
-.ff-main { flex: 1; padding: 0 var(--pad-x) 120px; }
+.ff-main { flex: 1; padding: 0 var(--pad-x) calc(128px + env(safe-area-inset-bottom)); animation: ff-enter .25s ease backwards; }
+/* Opacity only: a transform animation would turn .ff-main into the containing block for fixed buttons. */
+@keyframes ff-enter { from { opacity: 0; } }
 .ff-el:first-child { margin-top: 0; }
 
 /* Header */
 .ff-header { padding: 12px var(--pad-x) 0; position: sticky; top: 0; background: var(--bg); z-index: 10; }
-.ff-header-row { display: grid; grid-template-columns: 40px 1fr 40px; align-items: center; min-height: 40px; }
+.ff-header-row { display: grid; grid-template-columns: 44px 1fr 44px; align-items: center; min-height: 40px; }
 .ff-header-mid { display: flex; justify-content: center; align-items: center; gap: 8px; }
 .ff-header-title { font-weight: 500; }
-.ff-back { padding: 8px; margin-left: -8px; display: grid; place-items: center; }
+.ff-back { width: 44px; height: 44px; margin-left: -10px; border-radius: 50%; display: grid; place-items: center; transition: background-color .15s; }
+.ff-back:hover { background: rgba(0, 0, 0, .06); }
 .ff-progress { display: flex; margin-top: 8px; }
 .ff-seg { flex: 1; border-radius: 99px; overflow: hidden; }
 .ff-seg > div { height: 100%; border-radius: 99px; transition: width .35s ease; }
@@ -79,3 +82,18 @@ h1, h2, h3, p { margin: 0; }
 .ff-checkout-footer { text-align: center; font-size: 13px; opacity: .65; margin: 10px 0 0; }
 .ff-checkout .ff-button:disabled { opacity: .6; }
 @media (prefers-reduced-motion: reduce) { * { animation-duration: .01ms !important; transition-duration: .01ms !important; } }
+
+/* Interaction states & accessibility */
+:focus-visible { outline: 3px solid color-mix(in srgb, var(--primary, #f8545d) 70%, white); outline-offset: 2px; border-radius: 8px; }
+.ff-option:hover { border-color: color-mix(in srgb, var(--text) 25%, transparent) !important; }
+.ff-option.is-on { box-shadow: 0 0 0 1px currentColor inset; font-weight: 700; }
+.ff-button:hover { filter: brightness(1.08); }
+.ff-button[aria-disabled='true'] { cursor: not-allowed; }
+.ff-el[data-fixed] > * { pointer-events: auto; }
+.ff-el[data-fixed] { pointer-events: none; }
+.ff-option { min-height: 56px; }
+
+/* Likert captions: compact, no mid-word hyphenation */
+.ff-grid .ff-text { hyphens: manual; overflow-wrap: normal; }
+.ff-grid .ff-text--auto { font-size: 13px !important; line-height: 1.3 !important; }
+@media (min-width: 520px) { .ff-main { padding-top: 8px; } }

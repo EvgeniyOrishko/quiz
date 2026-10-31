@@ -104,15 +104,18 @@ function Shell({ el, children }: ElProps) {
       marginRight: u(c.marginHorizontal) ?? 0,
     })
     if (pos === 'fixed') {
-      style.maxWidth = 'var(--page-w)'
-      style.margin = `0 auto`
-      style.paddingLeft = u(c.marginHorizontal) ?? 'var(--pad-x)'
-      style.paddingRight = u(c.marginHorizontal) ?? 'var(--pad-x)'
-      style.paddingBottom = u(c.spacingBottom) ?? 16
+      // Bottom-docked action bar: scrim keeps scrolling content from colliding with the button.
+      Object.assign(style, {
+        maxWidth: 'var(--page-w)',
+        margin: '0 auto',
+        padding: `32px var(--pad-x) calc(${u(c.spacingBottom) ?? '16px'} + env(safe-area-inset-bottom))`,
+        background: 'linear-gradient(to top, var(--bg) 62%, transparent)',
+        pointerEvents: 'none',
+      })
     }
   }
   return (
-    <div data-el={el.id} data-type={el.type} data-custom={el.customId || undefined} style={style} className="ff-el">
+    <div data-el={el.id} data-type={el.type} data-custom={el.customId || undefined} data-fixed={fixed || undefined} style={style} className="ff-el">
       <Comp el={el}>{children}</Comp>
     </div>
   )

@@ -31,7 +31,7 @@ function Header() {
         <div className="ff-header-side" />
       </div>
       {h.progressBar && (
-        <div className="ff-progress" style={{ gap: u(th.gap) }}>
+        <div className="ff-progress" style={{ gap: u(th.gap) }} role="progressbar" aria-valuemin={0} aria-valuemax={100} aria-valuenow={Math.round(ratio * 100)} aria-label="Прогресс">
           {Array.from({ length: segs }).map((_, i) => {
             const fill = Math.max(0, Math.min(1, ratio * segs - i))
             return (
@@ -52,7 +52,7 @@ export function ScreenView() {
     <ElementProvider elements={screen.elements}>
       <div className="ff-screen" data-screen={screen.slug} data-type={screen.props.type ?? 'default'}>
         <Header />
-        <main className="ff-main">
+        <main className="ff-main" key={screen.slug}>
           <RenderTree nodes={screen.hierarchy.children ?? []} />
         </main>
       </div>
