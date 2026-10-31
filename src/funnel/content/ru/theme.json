@@ -1,0 +1,601 @@
+{
+ "ui": {
+  "reduceMotion": false,
+  "theme": {
+   "app": {
+    "backgroundColor": {
+     "unit": "hex",
+     "value": "#F0EFEB"
+    },
+    "borderRadiusBox": {
+     "unit": "px",
+     "value": 16
+    },
+    "colorPrimary": {
+     "unit": "hex",
+     "value": "#F8545D"
+    },
+    "colorSecondary": {
+     "unit": "hex",
+     "value": "#FFA230"
+    },
+    "colorText": {
+     "unit": "hex",
+     "value": "#111111"
+    },
+    "colorTextOnPrimary": {
+     "unit": "hex",
+     "value": "#FFFFFF"
+    },
+    "colorTextOnSecondary": {
+     "unit": "hex",
+     "value": "#FFFFFF"
+    },
+    "fontFamily": {
+     "meta": "sans-serif",
+     "unit": "google",
+     "value": "Noto Sans"
+    },
+    "paddingBottom": {
+     "unit": "px",
+     "value": 0
+    },
+    "paddingHorizontal": {
+     "unit": "px",
+     "value": 24
+    },
+    "paddingTop": {
+     "unit": "px",
+     "value": 0
+    }
+   },
+   "button": {
+    "backgroundColor": {
+     "unit": "hex",
+     "value": "#612A3F"
+    },
+    "borderColor": {
+     "unit": "hex",
+     "value": ""
+    },
+    "borderRadius": {
+     "unit": "px",
+     "value": 16
+    },
+    "borderWidth": {
+     "unit": "px",
+     "value": 0
+    },
+    "color": {
+     "unit": "hex",
+     "value": "#FFFFFF"
+    },
+    "fontFamily": {
+     "unit": "inherit",
+     "value": "inherit"
+    },
+    "fontSize": {
+     "unit": "px",
+     "value": 18
+    },
+    "fontWeight": {
+     "value": 500
+    },
+    "height": {
+     "unit": "px",
+     "value": 56
+    },
+    "lineHeight": {
+     "unit": "%",
+     "value": 150
+    },
+    "paddingHorizontal": {
+     "unit": "px",
+     "value": 0
+    },
+    "paddingVertical": {
+     "unit": "px",
+     "value": 16
+    },
+    "textAlign": {
+     "value": "center"
+    },
+    "width": {
+     "unit": "%",
+     "value": 100
+    }
+   },
+   "card": {
+    "backgroundColor": {
+     "unit": "hex",
+     "value": "#F5F6F8"
+    },
+    "borderColor": {
+     "unit": "hex",
+     "value": null
+    },
+    "borderRadius": {
+     "unit": "px",
+     "value": 16
+    },
+    "borderWidth": {
+     "unit": "px",
+     "value": 0
+    },
+    "color": {
+     "unit": "hex",
+     "value": "#000000"
+    },
+    "paddingHorizontal": {
+     "unit": "px",
+     "value": 20
+    },
+    "paddingVertical": {
+     "unit": "px",
+     "value": 20
+    },
+    "shadowColor": {
+     "unit": "hex",
+     "value": "#051d3314"
+    }
+   },
+   "element": {
+    "spacingTop": {
+     "unit": "px",
+     "value": 16
+    }
+   },
+   "errorText": {
+    "color": {
+     "unit": "hex",
+     "value": "#F8545D"
+    },
+    "fontFamily": {
+     "unit": "inherit",
+     "value": "inherit"
+    },
+    "fontSize": {
+     "unit": "px",
+     "value": 16
+    },
+    "fontWeight": {
+     "value": 500
+    }
+   },
+   "h1": {
+    "color": {
+     "unit": "hex",
+     "value": "#111111"
+    },
+    "fontFamily": {
+     "meta": "sans-serif",
+     "unit": "google",
+     "value": "Noto Sans"
+    },
+    "fontSize": {
+     "unit": "px",
+     "value": 28
+    },
+    "fontWeight": {
+     "value": 700
+    },
+    "lineHeight": {
+     "unit": "%",
+     "value": 130
+    },
+    "textAlign": {
+     "value": "center"
+    }
+   },
+   "h2": {
+    "color": {
+     "unit": "hex",
+     "value": "#111111"
+    },
+    "fontFamily": {
+     "meta": "sans-serif",
+     "unit": "google",
+     "value": "Noto Sans"
+    },
+    "fontSize": {
+     "unit": "px",
+     "value": 20
+    },
+    "fontWeight": {
+     "value": 700
+    },
+    "lineHeight": {
+     "unit": "%",
+     "value": 130
+    },
+    "textAlign": {
+     "value": "center"
+    }
+   },
+   "h3": {
+    "color": {
+     "unit": "hex",
+     "value": "#000000"
+    },
+    "fontFamily": {
+     "unit": "inherit",
+     "value": "inherit"
+    },
+    "fontSize": {
+     "unit": "px",
+     "value": 20
+    },
+    "fontWeight": {
+     "value": 700
+    },
+    "lineHeight": {
+     "unit": "%",
+     "value": 120
+    },
+    "textAlign": {
+     "value": "center"
+    }
+   },
+   "image": {
+    "align": {
+     "value": "center"
+    },
+    "borderRadius": {
+     "unit": "px",
+     "value": 0
+    },
+    "height": {
+     "unit": "px",
+     "value": null
+    },
+    "width": {
+     "unit": "%",
+     "value": 100
+    }
+   },
+   "input": {
+    "backgroundColor": {
+     "unit": "hex",
+     "value": "#fafafa"
+    },
+    "borderColor": {
+     "unit": "hex",
+     "value": "#DDDDDD"
+    },
+    "borderRadius": {
+     "unit": "px",
+     "value": 16
+    },
+    "borderWidth": {
+     "unit": "px",
+     "value": 2
+    },
+    "color": {
+     "unit": "hex",
+     "value": "#111111"
+    },
+    "focusBackgroundColor": {
+     "unit": "hex",
+     "value": "#fafafa"
+    },
+    "focusBorderColor": {
+     "unit": "hex",
+     "value": "#777777"
+    },
+    "fontFamily": {
+     "unit": "inherit",
+     "value": "inherit"
+    },
+    "fontSize": {
+     "unit": "px",
+     "value": 16
+    },
+    "fontWeight": {
+     "value": 500
+    },
+    "height": {
+     "unit": "px",
+     "value": 48
+    },
+    "invalidBackgroundColor": {
+     "unit": "hex",
+     "value": "#fafafa"
+    },
+    "invalidBorderColor": {
+     "unit": "hex",
+     "value": "#F8545D"
+    },
+    "invalidColor": {
+     "unit": "hex",
+     "value": "#F8545D"
+    },
+    "paddingHorizontal": {
+     "unit": "px",
+     "value": 16
+    },
+    "paddingVertical": {
+     "unit": "px",
+     "value": 8
+    },
+    "placeholderColor": {
+     "unit": "hex",
+     "value": "#828282"
+    },
+    "textAlign": {
+     "value": "left"
+    },
+    "width": {
+     "unit": "%",
+     "value": 100
+    }
+   },
+   "link": {
+    "color": {
+     "unit": "hex",
+     "value": "#5856ff"
+    },
+    "fontWeight": {
+     "value": "inherit"
+    },
+    "textDecoration": {
+     "value": "inherit"
+    }
+   },
+   "loader": {
+    "borderRadius": {
+     "unit": "px",
+     "value": 8
+    },
+    "circleWidth": {
+     "unit": "%",
+     "value": 50
+    },
+    "colorBg": {
+     "unit": "hex",
+     "value": "#0000001a"
+    },
+    "colorEnd": {
+     "unit": "hex",
+     "value": "#FFA230"
+    },
+    "colorStart": {
+     "unit": "hex",
+     "value": "#F8545D"
+    },
+    "colorText": {
+     "unit": "hex",
+     "value": "#000000"
+    },
+    "height": {
+     "unit": "px",
+     "value": 32
+    }
+   },
+   "option": {
+    "activeBgColor": {
+     "unit": "hex",
+     "value": "#F5F6F8"
+    },
+    "activeBorderColor": {
+     "unit": "hex",
+     "value": "#612A3F"
+    },
+    "activeTextColor": {
+     "unit": "hex",
+     "value": "#000000"
+    },
+    "align": {
+     "value": "left"
+    },
+    "backgroundColor": {
+     "unit": "hex",
+     "value": "#FFF"
+    },
+    "borderColor": {
+     "unit": "hex",
+     "value": "#F5F6F8"
+    },
+    "borderRadius": {
+     "unit": "px",
+     "value": 16
+    },
+    "borderWidth": {
+     "unit": "px",
+     "value": 2
+    },
+    "color": {
+     "unit": "hex",
+     "value": "#000000"
+    },
+    "fontFamily": {
+     "unit": "inherit",
+     "value": "inherit"
+    },
+    "fontSize": {
+     "unit": "px",
+     "value": 16
+    },
+    "fontWeight": {
+     "value": 500
+    },
+    "gap": {
+     "unit": "px",
+     "value": 12
+    },
+    "height": {
+     "unit": "px",
+     "value": 70
+    },
+    "paddingHorizontal": {
+     "unit": "px",
+     "value": 0
+    },
+    "paddingVertical": {
+     "unit": "px",
+     "value": 0
+    },
+    "width": {
+     "unit": "%",
+     "value": 100
+    }
+   },
+   "paragraph": {
+    "color": {
+     "unit": "hex",
+     "value": "#111111"
+    },
+    "fontFamily": {
+     "meta": "sans-serif",
+     "unit": "google",
+     "value": "Noto Sans"
+    },
+    "fontSize": {
+     "unit": "px",
+     "value": 16
+    },
+    "fontWeight": {
+     "value": 400
+    },
+    "lineHeight": {
+     "unit": "%",
+     "value": 150
+    },
+    "textAlign": {
+     "value": "center"
+    }
+   },
+   "progressBar": {
+    "backColor": {
+     "unit": "hex",
+     "value": "#000000"
+    },
+    "counterCurrentColor": {
+     "unit": "hex",
+     "value": "#000000"
+    },
+    "counterSeparatorColor": {
+     "unit": "hex",
+     "value": "#000000"
+    },
+    "counterTotalColor": {
+     "unit": "hex",
+     "value": "#000000"
+    },
+    "gap": {
+     "unit": "px",
+     "value": 8
+    },
+    "lineBgColor": {
+     "unit": "hex",
+     "value": "#F5F6F8"
+    },
+    "lineColor": {
+     "unit": "hex",
+     "value": "#612A3F"
+    },
+    "lineHeight": {
+     "unit": "px",
+     "value": 4
+    },
+    "logoSize": {
+     "unit": "px",
+     "value": 24
+    },
+    "textColor": {
+     "unit": "hex",
+     "value": "#111111"
+    },
+    "titleFontFamily": {
+     "unit": "inherit",
+     "value": "inherit"
+    },
+    "titleFontSize": {
+     "unit": "px",
+     "value": 16
+    },
+    "titleFontWeight": {
+     "value": 500
+    }
+   }
+  },
+  "components": {
+   "progressBar": {
+    "segments": 4,
+    "type": "segments",
+    "total": 77,
+    "screens": [
+     "WF9pHwi6",
+     "V9KLW4VQ",
+     "pzxXfNJq",
+     "YmAAezI5",
+     "M1XcwIkp",
+     "50LEmsh8",
+     "63IIwZhf",
+     "4JKmWClE",
+     "rparpccq",
+     "3RkFCKv2",
+     "6R6tuVAr",
+     "yDBUrK9F",
+     "LGy5LRyO",
+     "gnYEFWLc",
+     "oeTOEwbH",
+     "iqkFHzlx",
+     "KROSeNbi",
+     "vA8LAhDF",
+     "UWbXEelG",
+     "MhmMku5y",
+     "k8Mj3bkU",
+     "4Pgyhb57",
+     "0oEuXwwq",
+     "FWIoiio9",
+     "tCZMwGLk",
+     "SQVTGw9j",
+     "O5EzzxDy",
+     "pV66cphi",
+     "IVBmSkWJ",
+     "luohFByp",
+     "6rhgTSd6",
+     "efxdSVP7",
+     "kQcytago",
+     "5IwzwRRg",
+     "UF3vklIu",
+     "40Kt5RrI",
+     "nKVj9Hut",
+     "jGYjXzht",
+     "rwZG90ph",
+     "bT46bHsX",
+     "Ngm5qDQO",
+     "pDAJ1ler",
+     "j65pVPRN",
+     "waRZcUXO",
+     "FgjdoYiB",
+     "yyBSlV0Y",
+     "yNmIydqL",
+     "yGnhhJ5g",
+     "HavemKMB",
+     "ZX5ckaw7",
+     "Vi8djncJ",
+     "Wmujl3VN",
+     "duzIuuAx",
+     "hXxlQADg",
+     "mefvZ3Ce",
+     "50tbT2n0",
+     "S30xZhYp",
+     "FfurQ5IH",
+     "MxuQOVT7",
+     "ay4m11a1",
+     "O4kQW4j7",
+     "FPnGTDGT",
+     "9CAWubmy",
+     "UuskJTNc",
+     "Rpk0WZJ2",
+     "GJQ2wBTp",
+     "TJbLkPXo"
+    ]
+   }
+  }
+ },
+ "meta": {
+  "title": "Your personality type"
+ }
+}
