@@ -38,15 +38,37 @@ button; a hidden Continue button appears once required Options are answered; `Pr
 
 ## Payment (WayForPay)
 
-`Checkout` calls `startPayment()` in `src/funnel/payment.ts`. Without `VITE_WAYFORPAY_INVOICE_ENDPOINT`
-it resolves as success (so the post-payment screens `ricbt1rj → loader → accountcreation/login` can
-be explored). WayForPay requires a server-side signature: implement the endpoint
-(`POST {planId,email,sessionId} → {payUrl}`) and point the merchant return URL at
-`/archetype-test-v9/ricbt1rj`.
+Ported from the postpartum-yoga landing (`yoga-pregnancy-recover`) and adapted to the funnel.
+
+```
+Checkout CTA ─► POST /api/wayforpay-sign        server prices + HMAC-MD5 signature (secret never in the browser)
+             ─► <form> POST → secure.wayforpay.com/pay
+WayForPay    ─► POST /api/wayforpay-webhook     server-to-server result → verify signature → fulfil() → signed "accept"
+             ─► POST /api/wayforpay-return      browser return → 302 /ricbt1rj (paid) or /final_paywall?payment=failed
+```
+
+- `src/funnel/payment.ts` – client: fetches the signed order, submits the form. The client sends only
+  `productId`/`email`/`locale`; it can never set an amount. In `vite dev` (no `/api`) it simulates success.
+- `api/wayforpay-sign.js` – product catalog and price live here. Prefills `clientEmail` with the e-mail from the funnel.
+- `api/wayforpay-return.js` – turns WayForPay's multipart POST into a GET redirect. Cosmetic only, grants nothing.
+- `api/wayforpay-webhook.js` – the only trustworthy "paid" signal; calls `api/_fulfil.js` (**TODO: plug delivery in**).
+  Must be idempotent per `orderReference` – WayForPay may retry.
+- `api/_wayforpay.js` – shared signing/parsing. Parsing is manual on purpose: the webhook is JSON labelled as
+  urlencoded and the return is multipart, neither survives Vercel's default body parser.
+- `tests/wayforpay.test.mjs` – `node --test tests/wayforpay.test.mjs` (signature order, forged callbacks, return routing).
+
+Set in Vercel → Project Settings → Environment Variables (see `.env.example`); there are **no sandbox fallbacks** –
+WayForPay's published sandbox secret would let anyone forge a "paid" callback:
+`WAYFORPAY_MERCHANT_ACCOUNT`, `WAYFORPAY_MERCHANT_SECRET`, `WAYFORPAY_PRICE_REPORT` (required),
+`WAYFORPAY_CURRENCY` (default `UAH`), `WAYFORPAY_PRODUCT_NAME`.
+
+`vercel.json` rewrites everything except `/api/*` to the SPA. Prices shown on the paywall (JSON) are display-only –
+keep them in sync with `WAYFORPAY_PRICE_REPORT`. Declines always show the generic failure popup (WayForPay reason
+codes are not mapped to the "insufficient funds"/"invalid card" popups yet).
 
 ## Not copied / to implement
 
-- Third-party scripts of the source funnel (analytics, Stripe/Primer, subscription check, the
+- Third-party scripts of the source funnel (analytics, Primer/Stripe checkout, subscription check, the
   "insights teaser" iframe widget) are not loaded. The teaser screen is skipped, like the source does
   when its widget is unavailable.
 - `accountcreation`/`login` links still point at the source's external app; change them in the

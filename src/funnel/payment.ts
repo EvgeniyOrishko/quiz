@@ -1,37 +1,59 @@
 /**
- * Payment boundary. The checkout UI calls `startPayment`; swap the body for the real WayForPay flow.
+ * Payment boundary — WayForPay hosted checkout.
  *
- * WayForPay (https://wiki.wayforpay.com/) needs a server-side signature (HMAC_MD5 with the merchant
- * secret), so the browser must never hold the secret: create the invoice/signature on your backend,
- * then redirect to / open the returned pay URL (or use the widget with a server-signed payload).
+ * Flow: the browser asks `/api/wayforpay-sign` for a signed order (prices and the merchant secret stay on
+ * the server), then POSTs a real <form> to WayForPay. WayForPay later redirects the browser to
+ * `/api/wayforpay-return`, which 302s to `/ricbt1rj` (paid) or back to `/final_paywall?payment=failed`.
+ * Access is granted only by the server-to-server webhook (`api/wayforpay-webhook.js` → `api/_fulfil.js`).
  */
+const SIGN_ENDPOINT = '/api/wayforpay-sign'
+const CHECKOUT_URL = 'https://secure.wayforpay.com/pay'
+
 export interface PaymentRequest {
-  planId: string
+  /** Key of the server-side catalog in `api/wayforpay-sign.js`; the client never sends an amount. */
+  productId: string
   email: string
-  sessionId: string
-  /** Display price, e.g. "£0.99" — real amounts must be decided server-side. */
-  priceLabel: string
+  locale: string
 }
 
-export type PaymentResult = { status: 'success' } | { status: 'failed'; reason: 'generic' | 'insufficient_funds' | 'invalid_card' }
-
-const ENDPOINT = import.meta.env.VITE_WAYFORPAY_INVOICE_ENDPOINT as string | undefined
+export type PaymentResult =
+  | { status: 'redirecting' } // the page is navigating to WayForPay
+  | { status: 'success' } // local dev only: no /api available, behave as if paid
+  | { status: 'failed'; reason: 'generic' }
 
 export async function startPayment(req: PaymentRequest): Promise<PaymentResult> {
-  if (!ENDPOINT) {
-    // Local mock: no backend configured, behave as if the payment succeeded.
-    await new Promise((r) => setTimeout(r, 600))
-    return { status: 'success' }
+  let fields: Record<string, string>
+  try {
+    const res = await fetch(SIGN_ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(req),
+    })
+    if (!res.ok) throw new Error(`sign endpoint responded ${res.status}`)
+    fields = ((await res.json()) as { fields: Record<string, string> }).fields
+    if (!fields) throw new Error('no fields in sign response')
+  } catch (err) {
+    // `vite dev` does not serve /api; keep the post-payment screens explorable locally.
+    if (import.meta.env.DEV) {
+      console.warn('[payment] /api unavailable in dev — simulating a successful payment', err)
+      return { status: 'success' }
+    }
+    console.error('[payment] could not get a signed order', err)
+    return { status: 'failed', reason: 'generic' }
   }
-  // Expected contract: POST {planId,email,sessionId} → { payUrl }. The success/return URL configured
-  // on the backend should point back to /archetype-test-v9/ricbt1rj.
-  const res = await fetch(ENDPOINT, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(req),
-  })
-  if (!res.ok) return { status: 'failed', reason: 'generic' }
-  const { payUrl } = (await res.json()) as { payUrl: string }
-  location.assign(payUrl)
-  return new Promise<PaymentResult>(() => {})
+
+  const form = document.createElement('form')
+  form.method = 'POST'
+  form.action = CHECKOUT_URL
+  form.acceptCharset = 'utf-8'
+  for (const [name, value] of Object.entries(fields)) {
+    const input = document.createElement('input')
+    input.type = 'hidden'
+    input.name = name
+    input.value = value
+    form.appendChild(input)
+  }
+  document.body.appendChild(form)
+  form.submit()
+  return { status: 'redirecting' }
 }
